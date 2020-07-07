@@ -59,16 +59,6 @@ class Grid():
                 hexagon_l.append(Hexagon(center, radius))
         return hexagon_l
 
-    def to_geopandas(self, file_name):
-        Polygon_l = [Polygon(hexgon.get_vertexs()) for hexgon in self.grid_map()]
-        geometry = GeoSeries(Polygon_l)
-        id_l = [i for i in range(len(Polygon_l))]
-
-        gdf = geopandas.GeoDataFrame(id_l, geometry=geometry).rename(columns={0: 'id'})
-        gdf.crs = {'init' :'epsg:3826'}
-        gdf = gdf.to_crs({'init': 'epsg:4326'})
-        gdf.to_csv(file_name, index=False)
-
     def to_gdf(self):
         Polygon_l = [Polygon(hexgon.get_vertexs()) for hexgon in self.grid_map()]
         geometry = GeoSeries(Polygon_l)
